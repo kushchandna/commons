@@ -30,6 +30,38 @@ public class RangeSetIntersectionTest {
 
                 assertThatIntersectionOf(rangeSet("[10 - 30]", "[50 - 70]"), with("[20 - 60]"), is("[20 - 30]", "[50 - 60]")),
                 assertThatIntersectionOf(rangeSet("[10 - 30]", "[50 - 70]"), with("[55 - 65)"), is("[55 - 65)")),
+
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[10 - 20]"), is(emptyRangeSet())),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[20 - 30)"), is(emptyRangeSet())),
+                assertThatIntersectionOf(rangeSet("(30 - 40]"), with("[20 - 30]"), is(emptyRangeSet())),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[20 - 30]"), is("[30 - 30]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[25 - 35]"), is("[30 - 35]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[25 - 35)"), is("[30 - 35)")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[30 - 30]"), is("[30 - 30]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[30 - 40]"), is("[30 - 40]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[30 - 35]"), is("[30 - 35]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[32 - 37]"), is("[32 - 37]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[35 - 40]"), is("[35 - 40]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[35 - 45]"), is("[35 - 40]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("(35 - 45]"), is("(35 - 40]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[40 - 40]"), is("[40 - 40]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[40 - 50]"), is("[40 - 40]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("(40 - 50]"), is(emptyRangeSet())),
+                assertThatIntersectionOf(rangeSet("[30 - 40)"), with("(40 - 50]"), is(emptyRangeSet())),
+                assertThatIntersectionOf(rangeSet("[30 - 40)"), with("[40 - 50]"), is(emptyRangeSet())),
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("[50 - 60]"), is(emptyRangeSet())),
+
+                assertThatIntersectionOf(rangeSet("[30 - 40]", "[70 - 80]"), with("[50 - 60]"), is(emptyRangeSet())),
+                assertThatIntersectionOf(rangeSet("[30 - 40]", "[70 - 80]"), with("[35 - 40]"), is("[35 - 40]")),
+                assertThatIntersectionOf(rangeSet("[30 - 40]", "[70 - 80]"), with("[35 - 75]"), is("[35 - 40]", "[70 - 75]")),
+
+                assertThatIntersectionOf(rangeSet("[30 - 40]"), with("(* - *)"), is("[30 - 40]")),
+                assertThatIntersectionOf(rangeSet("(* - *)"), with("[30 - 40]"), is("[30 - 40]")),
+                assertThatIntersectionOf(rangeSet("(* - 30)"), with("[30 - 40]"), is(emptyRangeSet())),
+                assertThatIntersectionOf(rangeSet("(* - 30]"), with("[30 - 40]"), is("[30 - 30]")),
+                assertThatIntersectionOf(rangeSet("(* - 35)"), with("[30 - 40]"), is("[30 - 35)")),
+                assertThatIntersectionOf(rangeSet("(30 - *)"), with("[30 - 40]"), is("(30 - 40]")),
+
         };
     }
 
