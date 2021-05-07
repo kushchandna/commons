@@ -9,6 +9,13 @@ public class ObjectUtils {
         return object == null ? null : function.apply(object);
     }
 
+    public static <T> boolean executeIfTrue(boolean value, Runnable task) {
+        if (value) {
+            task.run();
+        }
+        return value;
+    }
+
     public static <T> T max(T o1, T o2, Comparator<T> comparator) {
         int comparision = comparator.compare(o1, o2);
         return comparision <= 0 ? o1 : o2;
