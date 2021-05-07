@@ -52,6 +52,13 @@ public final class Range<T> implements Serializable {
         return false;
     }
 
+    public NullableOptional<T> getPointValue() {
+        if (isPointRange()) {
+            return start;
+        }
+        return NullableOptional.empty();
+    }
+
     public static <T> Range.Builder<T> builder() {
         return new Range.Builder<>();
     }
