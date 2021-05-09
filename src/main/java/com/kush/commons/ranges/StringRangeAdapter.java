@@ -1,5 +1,7 @@
 package com.kush.commons.ranges;
 
+import static java.util.function.Function.identity;
+
 import java.util.function.Function;
 
 public class StringRangeAdapter<T> implements RangeAdapter<String, T> {
@@ -57,6 +59,10 @@ public class StringRangeAdapter<T> implements RangeAdapter<String, T> {
 
     public static Range<Integer> parseInt(String text) {
         return parse(text, Integer::parseInt);
+    }
+
+    public static Range<String> parseString(String text) {
+        return parse(text, identity());
     }
 
     private String[] getStartEndValues(String text) {

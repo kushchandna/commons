@@ -10,9 +10,23 @@ import java.util.Set;
 
 public class MapUtils {
 
+    @SuppressWarnings("unchecked")
+    public static <K, V> Map<K, V> newHashMap(Object... keyValues) {
+        if (keyValues.length % 2 != 0) {
+            throw new IllegalArgumentException();
+        }
+        Map<K, V> map = new HashMap<>();
+        int i = 0;
+        while (i < keyValues.length) {
+            K key = (K) keyValues[i++];
+            V value = (V) keyValues[i++];
+            map.put(key, value);
+        }
+        return map;
+    }
+
     public static <K, V> Map<K, V> intersect(Map<K, V> map1, Map<K, V> map2) {
-        KeyConflictHandler<K, V> conflictHandler = (key, val1, val2) -> val2;
-        return intersect(map1, map2, conflictHandler);
+        return intersect(map1, map2, (key, val1, val2) -> val2);
     }
 
     public static <K, V> Map<K, V> intersect(Map<K, V> map1, Map<K, V> map2, KeyConflictHandler<K, V> conflictHandler) {
@@ -30,8 +44,7 @@ public class MapUtils {
     }
 
     public static <K, V> Map<K, V> union(Map<K, V> map1, Map<K, V> map2) {
-        KeyConflictHandler<K, V> matchHandler = (key, val1, val2) -> val2;
-        return union(map1, map2, matchHandler);
+        return union(map1, map2, (key, val1, val2) -> val2);
     }
 
     public static <K, V> Map<K, V> union(Map<K, V> map1, Map<K, V> map2, KeyConflictHandler<K, V> conflictHandler) {
@@ -69,7 +82,7 @@ public class MapUtils {
         return allCombinations;
     }
 
-    private static <V, K> void addCombinations(Map<K, ? extends Collection<V>> possibleValues, List<Map<K, V>> allCombinations,
+    private static <K, V> void addCombinations(Map<K, ? extends Collection<V>> possibleValues, List<Map<K, V>> allCombinations,
             List<K> keys, int start, Map<K, V> singleValueMap) {
         for (int i = start; i < keys.size(); i++) {
             K key = keys.get(i);
