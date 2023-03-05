@@ -4,7 +4,7 @@ public interface Response<T> {
 
     T getResult() throws RequestFailedException, InterruptedException;
 
-    void waitForResult() throws InterruptedException, RequestFailedException;
+    void await() throws InterruptedException, RequestFailedException;
 
     void addResultListener(ResultListener<T> resultListener);
 

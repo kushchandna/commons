@@ -20,7 +20,7 @@ class LocalResponse<T> implements Response<T> {
     }
 
     @Override
-    public void waitForResult() throws InterruptedException, RequestFailedException {
+    public void await() throws InterruptedException, RequestFailedException {
         latch.await();
         if (error != null) {
             throw new RequestFailedException(error);
@@ -29,7 +29,7 @@ class LocalResponse<T> implements Response<T> {
 
     @Override
     public T getResult() throws RequestFailedException, InterruptedException {
-        waitForResult();
+        await();
         return result;
     }
 
